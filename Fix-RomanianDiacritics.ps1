@@ -2,7 +2,7 @@
 .SYNOPSIS
     Fixes Romanian diacritics in subtitle files (.srt, .sub) by replacing incorrect characters with the correct ones.
 .DESCRIPTION
-    This PowerShell script is designed to be run from the context menu (right-click) on a folder containing subtitle files (.srt).
+    This PowerShell script is designed to be run from the context menu (right-click) on a folder containing subtitle files (.srt, .sub).
     It will prompt the user to select a destination folder where the corrected files will be saved. The script reads each subtitle file, replaces incorrect Romanian diacritics with the correct ones, and saves the modified files in the specified destination folder.
     The script also generates a log file detailing which files were processed and whether any changes were made.
     Written by: Wilhelm Tomasi on 14 July 2025
@@ -72,7 +72,7 @@ $replacements['Î'] = [char]0x00CE  # Î
 $encoding1252 = [System.Text.Encoding]::GetEncoding(1252)
 $encodingUtf8 = [System.Text.UTF8Encoding]::new($false)
 
-# Process all .srt files in the selected source folder
+# Process all .srt and/or .sub files in the selected source folder
 Get-ChildItem -Path $sourceDir -Recurse -Include "*.srt","*.sub" | ForEach-Object {
     $inputPath = $_.FullName
     $relativePath = $inputPath.Substring($sourceDir.Length).TrimStart('\')

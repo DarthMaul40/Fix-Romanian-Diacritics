@@ -1,6 +1,6 @@
 # Fix-Romanian-Diacritics
 This PowerShell script is designed to be run from the context menu (right-click) on a folder containing subtitle files (.srt, .sub).
-PowerShell scripts for automatically correcting Romanian diacritics in text files. These scripts scan files and replace incorrect or missing Romanian diacritic characters with their proper Unicode equivalents.
+This script can scan files and replace incorrect Romanian diacritic characters with their proper Unicode equivalents.
 
 ## Features
 

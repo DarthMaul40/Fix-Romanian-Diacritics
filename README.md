@@ -13,19 +13,19 @@ This script can scan files and replace incorrect Romanian diacritic characters w
 1. Copy all `.ps1` files to a directory of your choice (e.g., `C:\Scripts\Fix-RomanianDiacritics`).
 2. Edit the `$scriptPath` variable in the script (below the comment "Define the path to the script that will be executed from the context menu") to match your chosen directory.
 3. Save the script after editing.
-4. Right-click `Install-ContextMenu.ps1` and select **Run with PowerShell** to add the context menu entry.
+4. Right-click `Install-ContextMenu.ps1` and select **Run with PowerShell** to add the context menu entry. Accept the prompt to run the script as administrator (required for registry changes).
+
 
 ## Uninstallation
 
-To remove the context menu entry, right-click `Uninstall-ContextMenu.ps1` and select **Run with PowerShell**.
+To remove the context menu entry, right-click `Uninstall-ContextMenu.ps1` and select **Run with PowerShell**. Accept the prompt to run the script as administrator (required for registry changes).
 
 ## Usage
 
 1. Right-click the folder containing your subtitle files.
 2. Select **Fix Romanian Diacritics** from the context menu.
-3. Accept the prompt to run the script as administrator (required for registry changes).
-4. Choose the destination folder for the corrected files when prompted.
-5. Access your modified files in the destination folder.
+3. Choose the destination folder for the corrected files when prompted.
+4. Access your modified files in the destination folder.
 
 ---
 

@@ -7,6 +7,14 @@ This script can scan files and replace incorrect Romanian diacritic characters w
 - Detects and fixes common Romanian diacritic issues
 - Batch processing of multiple files
 - Integration with Windows Explorer context menu
+- Supports .srt and .sub files
+- Handles multiple encodings robustly
+- Preserves folder structure
+- Enforces UTF-8 without BOM
+- Uses case-sensitive character replacements
+- Logs all changes
+- Works with right-click context menu
+- Adds .ro only when needed
 
 ## Installation
 

@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Fixes Romanian diacritics in subtitle files (.srt, .sub) by replacing incorrect characters with the correct ones.
 .DESCRIPTION
@@ -42,7 +42,6 @@ if (-not $sourceDir -or -not (Test-Path $sourceDir)) {
 
 # Ask user for destination folder
 $destinationDir = Select-Folder -description "Select the destination folder to save corrected files"
-
 
 if (-not $destinationDir) {
     Write-Host "No destination folder selected. Exiting script." -ForegroundColor Yellow

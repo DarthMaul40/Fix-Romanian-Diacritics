@@ -154,6 +154,7 @@ foreach ($file in $subtitleFiles) {
 
 Write-Host "Done. Log saved to: $logPath" -ForegroundColor Green
 Stop-Transcript
+
 # Wait for user input before closing the window
 Write-Host "Press any key to close this window..." -ForegroundColor Cyan
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

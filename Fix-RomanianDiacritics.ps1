@@ -58,22 +58,43 @@ $logPath = Join-Path $destinationDir "FixLog.txt"
 
 # Case-sensitive replacement table
 $replacements = New-Object 'System.Collections.Hashtable' ([System.StringComparer]::Ordinal)
-$replacements['þ'] = [char]0x021B  # ț
-$replacements['Þ'] = [char]0x021A  # Ț
-$replacements['º'] = [char]0x0219  # ș
-$replacements['ª'] = [char]0x0218  # Ș
-$replacements['ş'] = [char]0x0219  # ș
-$replacements['Ş'] = [char]0x0218  # Ș
-$replacements['ţ'] = [char]0x021B  # ț
-$replacements['Ţ'] = [char]0x021A  # Ț
-$replacements['ã'] = [char]0x0103  # ă
-$replacements['Ã'] = [char]0x0102  # Ă
-$replacements['â'] = [char]0x00E2  # â
-$replacements['Â'] = [char]0x00C2  # Â
-$replacements['î'] = [char]0x00EE  # î
-$replacements['Î'] = [char]0x00CE  # Î
+    $replacements['ã'] = [char]0x0103  # ă
+    $replacements['ãĂ£'] = [char]0x0103  # ă
 
-# Encoding
+    $replacements['Ã'] = [char]0x0102  # Ă
+    $replacements['Ãƒ'] = [char]0x0102  # Ă
+
+    $replacements['â'] = [char]0x00E2  # â
+    $replacements['Ă¢'] = [char]0x00E2  # â
+
+    $replacements['Â'] = [char]0x00C2  # Â
+
+    $replacements['î'] = [char]0x00EE  # î
+    $replacements['Ă®'] = [char]0x00EE  # î
+
+    $replacements['Î'] = [char]0x00CE  # Î
+    $replacements['ĂŽ'] = [char]0x00CE  # Î
+
+    $replacements['ş'] = [char]0x0219  # ș
+    $replacements['º'] = [char]0x0219  # ș
+    $replacements['Âș'] = [char]0x0219  # ș
+
+    $replacements['Ş'] = [char]0x0218  # Ș
+    $replacements['ª'] = [char]0x0218  # Ș
+    $replacements['ª'] = [char]0x0218  # Ș
+    $replacements['ÂȘ'] = [char]0x0218  # Ș
+
+    $replacements['ţ'] = [char]0x021B  # ț
+    $replacements['þ'] = [char]0x021B  # ț
+    $replacements['Ă¾'] = [char]0x021B  # ț
+
+    $replacements['Ţ'] = [char]0x021A  # Ț
+    $replacements['Þ'] = [char]0x021A  # Ț
+    $replacements['Ţ'] = [char]0x021A  # Ț
+
+    $replacements['â€™'] = [char]0x2019  # ’ (apostrophe)
+
+# Function to determine file encoding
 function Get-FileContentWithSmartEncoding {
     param (
         [string]$FilePath

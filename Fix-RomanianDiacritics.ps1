@@ -10,6 +10,7 @@
 param (
     [string]$sourceDir  # Provided automatically by right-click (%V)
 )
+
 Add-Type -AssemblyName System.Windows.Forms
 
 function Select-Folder($description) {
@@ -27,6 +28,11 @@ function Select-Folder($description) {
 
 # Ensure the script is run with UTF-8 encoding
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# As
+if (-not $sourceDir) {
+    $sourceDir = Select-Folder -description "Select the folder containing source subtitles"
+}
 
 # If somehow no sourceDir was passed (failsafe)
 if (-not $sourceDir -or -not (Test-Path $sourceDir)) {
@@ -69,12 +75,40 @@ $replacements['î'] = [char]0x00EE  # î
 $replacements['Î'] = [char]0x00CE  # Î
 
 # Encoding
-$encoding1252 = [System.Text.Encoding]::GetEncoding(1252)
-$encodingUtf8 = [System.Text.UTF8Encoding]::new($false)
+function Get-FileContentWithSmartEncoding {
+    param (
+        [string]$FilePath
+    )
 
-# Process all .srt and/or .sub files in the selected source folder
-Get-ChildItem -Path $sourceDir -Recurse -Include "*.srt","*.sub" | ForEach-Object {
-    $inputPath = $_.FullName
+    $bytes = [System.IO.File]::ReadAllBytes($FilePath)
+
+    switch -regex ($bytes[0..2] -join ' ') {
+        '^239 187 191' {
+            # "UTF-8 BOM detected in $FilePath" | Out-File $LogPath -Append -Encoding UTF8
+            return [System.Text.Encoding]::UTF8.GetString($bytes)
+        }
+    }
+
+    switch -regex ($bytes[0..1] -join ' ') {
+        '^255 254' {
+            # "UTF-16 LE BOM detected in $FilePath" | Out-File $LogPath -Append -Encoding UTF8
+            return [System.Text.Encoding]::Unicode.GetString($bytes)
+        }
+        '^254 255' {
+            # "UTF-16 BE BOM detected in $FilePath" | Out-File $LogPath -Append -Encoding UTF8
+            return [System.Text.Encoding]::BigEndianUnicode.GetString($bytes)
+        }
+    }
+
+    # "Assuming Windows-1252 for $FilePath" | Out-File $LogPath -Append -Encoding UTF8
+    return [System.Text.Encoding]::GetEncoding(1252).GetString($bytes)
+}
+
+# Process both .srt and .sub files
+$subtitleFiles = Get-ChildItem -Path $sourceDir -Recurse -Include "*.srt","*.sub"  
+foreach ($file in $subtitleFiles) {
+    
+    $inputPath = $file.FullName
     $relativePath = $inputPath.Substring($sourceDir.Length).TrimStart('\')
     $outputPath = Join-Path $destinationDir $relativePath
 
@@ -84,9 +118,8 @@ Get-ChildItem -Path $sourceDir -Recurse -Include "*.srt","*.sub" | ForEach-Objec
         New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
     }
 
-    # Read with legacy encoding
-    $bytes = [System.IO.File]::ReadAllBytes($inputPath)
-    $text = $encoding1252.GetString($bytes)
+    # Read file content with smart encoding
+    $text = Get-FileContentWithSmartEncoding -FilePath $inputPath
     $originalText = $text
 
     # Replace invalid diacritics
@@ -94,8 +127,21 @@ Get-ChildItem -Path $sourceDir -Recurse -Include "*.srt","*.sub" | ForEach-Objec
         $text = [regex]::Replace($text, [regex]::Escape($key), [string]$replacements[$key], [System.Text.RegularExpressions.RegexOptions]::None)
     }
 
+    $text = $text.TrimStart([char]0xFEFF) # Remove BOM if present at the start
+
+    $baseName = [System.IO.Path]::GetFileNameWithoutExtension($inputPath)
+    $extension = $file.Extension
+
+    # Ensure the output file has the .ro extension if not already present
+    if ($baseName -notmatch '\.ro$') {
+        $outputFile = Join-Path $outputDir "$baseName.ro$extension"
+    } else {
+        $outputFile = Join-Path $outputDir "$baseName$extension"
+    }
+    
     # Save as UTF-8 (no BOM)
-    [System.IO.File]::WriteAllText($outputPath, $text, $encodingUtf8)
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($outputFile, $text, $utf8NoBom)
 
     # Log changes
     if ($text -ne $originalText) {

@@ -35,6 +35,10 @@ To remove the context menu entry, right-click `Uninstall-ContextMenu.ps1` and se
 3. Choose the destination folder for the corrected files when prompted.
 4. Access your modified files in the destination folder.
 
+If you don't want to mess up with Explorer context menu, just fire up a Powershell windows and launch the script either by
+- specifying the directory containing the subtitles:
+    .\Fix-RomanianDiacritics.ps1 -SourceDir "your_source_directory"
+- without any parameter. The script will open a dialog asking you to specify both source and destination directories.
 ---
 
 **Author:** Wilhelm Tomasi

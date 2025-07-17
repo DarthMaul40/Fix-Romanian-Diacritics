@@ -22,7 +22,7 @@ If the subtitles are not encoded in UTF-8:
 - The text may fail to render or cause playback errors on certain devices
 - Accessibility and professionalism are compromised
 
-# What This Script Does
+## What This Script Does
 This PowerShell script solves these issues by:
 - Detecting and correcting encoding issues in .srt and .sub files
 - Replacing incorrect or legacy characters with correct Romanian diacritics

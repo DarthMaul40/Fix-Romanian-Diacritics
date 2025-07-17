@@ -81,7 +81,6 @@ $replacements = New-Object 'System.Collections.Hashtable' ([System.StringCompare
 
     $replacements['Ş'] = [char]0x0218  # Ș
     $replacements['ª'] = [char]0x0218  # Ș
-    $replacements['ª'] = [char]0x0218  # Ș
     $replacements['ÂȘ'] = [char]0x0218  # Ș
 
     $replacements['ţ'] = [char]0x021B  # ț

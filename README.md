@@ -1,12 +1,14 @@
 # Fix-Romanian-Diacritics
 This PowerShell script is designed to be run from the context menu (right-click) on a folder containing subtitle files (.srt, .sub).
-This script can scan files and replace incorrect Romanian diacritic characters with their proper Unicode equivalents.
+The script can scan files and replace incorrect Romanian diacritic characters with their proper Unicode equivalents.
 
 ## Why This Script Matters: Fixing Romanian Diacritics in Subtitle Files
 Many Romanian subtitle files available online are encoded using legacy formats like ANSI (Windows-1252) or ISO-8859-1. These encodings often contain incorrect or legacy representations of Romanian diacritic characters such as ş, ţ, ã, or even substitute characters like þ, º, and ª. As a result:
 
 ✅ Characters appear garbled or incorrect in modern video players
+
 ❌ Proper Romanian spelling is broken, affecting readability and viewer experience
+
 ⚠ Subtitle rendering may fail entirely on players expecting Unicode input
 
 ## Why UTF-8 Is Important

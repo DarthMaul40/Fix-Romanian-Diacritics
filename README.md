@@ -16,7 +16,7 @@ Modern video players — including VLC, Plex, Kodi, and most smart TVs — expec
 - Is the de facto standard encoding for subtitles and web content
 
 If the subtitles are not encoded in UTF-8:
-- Characters like ș, ț, or ă may appear as Ã, þ, ¸, or ?
+- Characters like ș, ț, or ă may appear as ª, þ, or ã, ãĂ£
 - The text may fail to render or cause playback errors on certain devices
 - Accessibility and professionalism are compromised
 

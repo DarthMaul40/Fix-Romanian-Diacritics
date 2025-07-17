@@ -6,12 +6,10 @@ This script can scan files and replace incorrect Romanian diacritic characters w
 Many Romanian subtitle files available online are encoded using legacy formats like ANSI (Windows-1252) or ISO-8859-1. These encodings often contain incorrect or legacy representations of Romanian diacritic characters such as ş, ţ, ã, or even substitute characters like þ, º, and ª. As a result:
 
 ✅ Characters appear garbled or incorrect in modern video players
-
 ❌ Proper Romanian spelling is broken, affecting readability and viewer experience
-
 ⚠ Subtitle rendering may fail entirely on players expecting Unicode input
 
-## 🎯 Why UTF-8 Is Important
+## Why UTF-8 Is Important
 Modern video players — including VLC, Plex, Kodi, and most smart TVs — expect subtitle files to be encoded in UTF-8, preferably without a Byte Order Mark (BOM). UTF-8:
 - Supports all Unicode characters cleanly and consistently
 - Is backward-compatible with ASCII
